@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviews de Filmes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Reviews de Filmes</h1>
+
+  <div class="container">
+
+    <div class="form">
+      <input id="title" type="text" placeholder="Título do filme" />
+      <input id="poster" type="text" placeholder="URL do poster" />
+      <input id="rating" type="number" placeholder="Nota (0 a 5)" />
+      <textarea id="review" placeholder="Escreva uma review..."></textarea>
+      <button onclick="addMovie()">Adicionar Filme</button>
+    </div>
+
+    <div class="movies" id="moviesList">
+
+      <div class="card">
+        <img src="https://image.tmdb.org/t/p/w500/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg" />
+        <h2>Inception</h2>
+        <div class="rating">⭐ 4.8</div>
+        <p class="review">Um filme complexo e visualmente impressionante sobre sonhos dentro de sonhos.</p>
+      </div>
+
+      <div class="card">
+        <img src="https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg" />
+        <h2>Interstellar</h2>
+        <div class="rating">⭐ 4.9</div>
+        <p class="review">Uma jornada emocionante pelo espaço com temas profundos e marcantes.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
