@@ -3,7 +3,7 @@
     $db = mysqçli_select_db($conn, "database");
 
     if ($conn) {
-        echo "Conexão com o banco ded ados realizada com sucesso!";
+        echo "Conexão com o banco de dados realizada com sucesso!";
     } else {
         echo "Falha na conexão com o banco de dados: ";
     }
