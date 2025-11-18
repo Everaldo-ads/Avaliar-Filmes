@@ -12,7 +12,7 @@ Reviews de Filmes
 ### Tecnologias Utilizadas
     PHP
     MySQL (MySQLi)
-    HTML / CSS
+    HTML / CSS / JS
     XAMPP(ambiente local)
 ### Recursos
 - Cadastro de usuário
