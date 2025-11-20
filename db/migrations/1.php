@@ -11,7 +11,7 @@
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
     
-    CREATE TABLE IF NOT EXISTS Movie (
+    CREATE TABLE IF NOT EXISTS `Movie` (
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         age_classification ENUM('L', '10', '12', '14', '16', '18') NOT NULL,
         name VARCHAR(255) NOT NULL,
