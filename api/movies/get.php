@@ -1,6 +1,6 @@
 <?php
     include_once("../../db/config.inc.php");
-    if ($_SERVER["method"] == "GET") {
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
         header("Content-Type", "application/json");
         $required_params = array("id");
         foreach ($required_params as $param) {
@@ -64,13 +64,17 @@
                     country: string,
                     duration: int,
                     budget: float,
-                    images: {
+                    images: [{
                         id: int,
                         content: string
-                    }
+                    }]
                 }
             */
             echo json_encode($movieData);
+        } else {
+            echo json_encode([
+            "error" => "Filme não encontrado." 
+        ]);
         }
     } else {
         echo json_encode([
