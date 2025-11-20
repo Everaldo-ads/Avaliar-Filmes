@@ -1,6 +1,6 @@
 <?php
     include_once("../../db/config.inc.php");
-    if ($_SERVER["method"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $required_params = array(
             "age_classification", 
             "name", 
