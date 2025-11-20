@@ -16,7 +16,7 @@
             $binaryImageData = file_get_contents($profileImage["tmp_name"]);
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $sql = "
-                INSERT INTO users (email, password, nickname, profile_image) 
+                INSERT INTO user (email, password, nickname, profile_image) 
                 VALUES ('$email', '$hashedPassword', '$nickname', '$binaryImageData');
             ";
             $insert = mysqli_query($conn, $sql);
