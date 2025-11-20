@@ -16,65 +16,32 @@
 
         $sql = "
             SELECT 
-                Actor.id AS id,
-                Actor.name,
-                Actor.birthdate,
-                Actor.country,
-                Actor.biography,
-
-                ActorImage.id AS image_id,
-                ActorImage.content
+                id,
+                name,
+                birthdate,
+                country,
+                biography,
+                profile_image
             FROM Actor
-            LEFT JOIN ActorImage
-                ON ActorImage.actor_id = Actor.id
-            WHERE Actor.id = $id;
+            WHERE id = $id;
         ";
 
         $result = mysqli_query($conn, $sql);
 
         if (mysqli_num_rows($result) > 0) {
 
-            $images = array();
-            $hasActorData = false;
+            $dados = mysqli_fetch_array($result);
 
-            while ($dados = mysqli_fetch_array($result)) {
-
-                if (!$hasActorData) {
-                    $actorData = [
-                        "id" => $dados["id"],
-                        "name" => $dados["name"],
-                        "birthdate" => $dados["birthdate"],
-                        "country" => $dados["country"],
-                        "biography" => $dados["biography"]
-                    ];
-                    $hasActorData = true;
-                }
-
-                if ($dados["image_id"]) {
-                    $image = [
-                        "id" => $dados["image_id"],
-                        "content" => base64_encode($dados["content"])
-                    ];
-                    array_push($images, $image);
-                }
-            }
-
-            $actorData["images"] = $images;
-
-            /*
-                Formato dos dados retornados:
-                {
-                    id: int,
-                    name: string,
-                    birthdate: Date,
-                    country: string,
-                    biography: string,
-                    images: [{
-                        id: int,
-                        content: string
-                    }]
-                }
-            */
+            $actorData = [
+                "id" => $dados["id"],
+                "name" => $dados["name"],
+                "birthdate" => $dados["birthdate"],
+                "country" => $dados["country"],
+                "biography" => $dados["biography"],
+                "profile_image" => $dados["profile_image"] 
+                    ? base64_encode($dados["profile_image"]) 
+                    : null
+            ];
 
             echo json_encode($actorData);
 
