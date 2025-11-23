@@ -32,7 +32,18 @@
 
         FOREIGN KEY (user_id) REFERENCES User(id),
         FOREIGN KEY (movie_id) REFERENCES Movie(id)
+    );
+
+    CREATE TABLE IF NOT EXISTS `Actor` (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(150) NOT NULL,
+        birthdate DATE,
+        biography TEXT,
+        country VARCHAR(150) NOT NULL,
+        profile_image LONGBLOB
     );"
+
+    
     mysqli_query($conn, $sql);
 
     $mysqli_close($conn);
