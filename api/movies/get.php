@@ -33,6 +33,11 @@
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) == 1) {
             $dados = mysqli_fetch_array($result);
+            $images = json_decode($dados["images"], true);
+            for ($i=0; $i<count($images); $i++) {
+                $images[$i]["content"] = base64_encode($images[$i]["content"]);
+            }
+            $dados["images"] = $images;
             echo json_encode($dados);
         } else {
             echo json_encode([
