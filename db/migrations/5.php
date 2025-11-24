@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS Cast (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    movie_id INT NOT NULL,
+    FOREIGN KEY (movie_id) REFERENCES Movie(id)
+);
