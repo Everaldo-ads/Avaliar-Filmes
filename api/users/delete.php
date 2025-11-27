@@ -20,9 +20,9 @@
                 echo "Usuário não encontrado";
             }
         }
-        else (!$id) {
-            echo "Erro ao deletar usuário: id necessário."
-        } 
+            else {
+            echo "Erro ao deletar usuário: id necessário.";
+            }
     } else {
         echo "Método de requisição inválido.";
     }

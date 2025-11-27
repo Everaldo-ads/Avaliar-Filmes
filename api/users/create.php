@@ -7,11 +7,11 @@
         $profileImage = $_FILES['profileImage'];
 
         if (!$email) {
-            echo "Erro ao criar usuário: email necessário."
+            echo "Erro ao criar usuário: email necessário.";
         } else if (!$password) {
-            echo "Erro ao criar usuário: senha necessária."
+            echo "Erro ao criar usuário: senha necessária.";
         } else if (!$nickname) {
-            echo "Erro ao criar usuário: nickname necessário."
+            echo "Erro ao criar usuário: nickname necessário.";
         } else {
             $binaryImageData = file_get_contents($profileImage["tmp_name"]);
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
