@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         VALUES ('$movie_id', '$actor_id', '$character_name')
     ";
 
-    // 5. Executa
+    
     if (mysqli_query($conn, $sql)) {
         echo "Ator vinculado ao filme com sucesso!";
     } else {
