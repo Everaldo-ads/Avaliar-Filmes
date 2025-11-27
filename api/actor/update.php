@@ -16,7 +16,7 @@
             
             $imageData = addslashes(file_get_contents($_FILES['photo']['tmp_name']));
             
-            $sql = "UPDATE Actor SET
+            $sql = "UPDATE actor SET
                     name = '$name',
                     birthdate = '$birthdate',
                     biography = '$biography',
@@ -26,7 +26,7 @@
                     
         } else {
 
-            $sql = "UPDATE Actor SET
+            $sql = "UPDATE actor SET
                     name = '$name',
                     birthdate = '$birthdate',
                     biography = '$biography',
