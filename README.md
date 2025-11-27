@@ -1,4 +1,4 @@
-# Avaliar-Filmes
+# CinePhilia
 
 ## Equipe: 
 - Everaldo Veloso (Backend)
