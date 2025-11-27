@@ -11,5 +11,5 @@
 
     mysqli_query($conn, $sql);
 
-    $mysqli_close($conn);
+    mysqli_close($conn);
 ?>
