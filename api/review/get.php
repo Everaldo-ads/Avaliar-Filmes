@@ -1,0 +1,48 @@
+<?php
+    include_once("../../db/config.inc.php");
+    
+    if (!isset($conn)) { header("Content-Type: application/json"); echo json_encode(["error" => "Conexão falhou."]); exit; }
+
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        header("Content-Type: application/json");
+
+        $where = "";
+        if (!empty($_REQUEST['movie_id'])) {
+            $id = intval($_REQUEST['movie_id']);
+            $where = "WHERE r.movie_id = $id";
+        } elseif (!empty($_REQUEST['user_id'])) {
+            $id = intval($_REQUEST['user_id']);
+            $where = "WHERE r.user_id = $id";
+        }
+
+        
+        $sql = "
+            SELECT 
+                r.id,
+                r.score,
+                r.message,
+                r.created_at,
+                u.nickname as user_name,
+                m.name as movie_name
+            FROM review r
+            JOIN users u ON r.user_id = u.id
+            JOIN movie m ON r.movie_id = m.id
+            $where
+            ORDER BY r.created_at DESC
+        ";
+
+        $result = mysqli_query($conn, $sql);
+        $reviews = [];
+
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $reviews[] = $row;
+            }
+        }
+        echo json_encode($reviews);
+
+    } else {
+        echo json_encode(["error" => "Método inválido."]);
+    }
+    mysqli_close($conn);
+?>
