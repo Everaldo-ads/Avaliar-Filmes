@@ -26,7 +26,7 @@
                 country,
                 biography,
                 profile_image
-            FROM actor
+            FROM Actor
             WHERE id = $id;
         ";
 
