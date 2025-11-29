@@ -15,14 +15,30 @@
             SELECT 
                 m.*,
                 AVG(r.score) AS average_score,
-                JSON_ARRAYAGG(
-                    DISTINCT JSON_OBJECT(
-                        'id', mi.id,
-                        'content', mi.content
-                    )
+                CONCAT(
+                    '[', 
+                    IFNULL(
+                        GROUP_CONCAT(
+                            DISTINCT CONCAT(
+                                '{\"id\":', mi.id,
+                                ',\"content\":\"', TO_BASE64(mi.content), '\"}'
+                            )
+                            SEPARATOR ','
+                        ),
+                    ''),
+                    ']'
                 ) AS images,
-                JSON_ARRAYAGG(
-                    DISTINCT g.name
+                CONCAT(
+                    '[', 
+                    IFNULL(
+                        GROUP_CONCAT(
+                            DISTINCT CONCAT(
+                                '\"', g.name, '\"'
+                            )
+                            SEPARATOR ','
+                        ),
+                    ''),
+                    ']'
                 ) AS genres
             FROM movie m
             LEFT JOIN movieimage mi ON mi.movie_id = m.id
