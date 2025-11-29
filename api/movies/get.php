@@ -1,7 +1,7 @@
 <?php
     include_once("../../db/config.inc.php");
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        header("Content-Type", "application/json");
+        header("Content-Type: application/json");
         $required_params = array("id");
         foreach ($required_params as $param) {
             if (!$_REQUEST[$param]) {
