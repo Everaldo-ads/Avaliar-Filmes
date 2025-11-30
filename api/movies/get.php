@@ -6,7 +6,7 @@
         foreach ($required_params as $param) {
             if (!$_REQUEST[$param]) {
                 echo json_encode([
-                    "error" => "Erro ao cadastrar filme: o valor de '$param' é necessário."
+                    "error" => "Erro ao carregar filme: o valor de '$param' é necessário."
                 ]);
             }
         }
@@ -39,23 +39,37 @@
                         ),
                     ''),
                     ']'
-                ) AS genres
+                ) AS genres,
+                CONCAT(
+                    '[', 
+                    IFNULL(
+                        GROUP_CONCAT(
+                            DISTINCT CONCAT(
+                                '{\"id\":', a.id,
+                                ',\"name\":\"', a.name, '\"',
+                                ',\"country\":\"', a.country, '\"',
+                                ',\"profile_image\":\"', TO_BASE64(a.profile_image), '\"',
+                                '}'
+                            )
+                            SEPARATOR ','
+                        ),
+                    ''),
+                    ']'
+                ) AS actors
             FROM movie m
             LEFT JOIN movieimage mi ON mi.movie_id = m.id
             LEFT JOIN review r ON r.movie_id = m.id
             LEFT JOIN movie_genre mg ON mg.movie_id = m.id
             LEFT JOIN genre g ON g.id = mg.genre_id  
+            LEFT JOIN `cast` c ON c.movie_id = m.id
+            LEFT JOIN cast_actor ca ON ca.cast_id = c.id
+            LEFT JOIN actor a ON a.id = ca.actor_id
             WHERE m.id=$id
             GROUP BY m.id;
         ";
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) == 1) {
             $dados = mysqli_fetch_array($result);
-            $images = json_decode($dados["images"], true);
-            for ($i=0; $i<count($images); $i++) {
-                $images[$i]["content"] = base64_encode($images[$i]["content"]);
-            }
-            $dados["images"] = $images;
             echo json_encode($dados);
         } else {
             echo json_encode([
