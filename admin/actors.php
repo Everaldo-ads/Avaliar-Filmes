@@ -56,7 +56,7 @@
 
                                 echo "<td>
                                         <div class='d-flex gap-2'>
-                                            <a href='actor_form.php?id={$row['id']}' class='btn btn-sm btn-primary'><i class='bi bi-pencil'></i></a>
+                                            <a href='actor_edit.php?id={$row['id']}' class='btn btn-sm btn-primary'><i class='bi bi-pencil'></i></a>
                                             
                                             <form action='../api/actor/delete.php' method='POST' onsubmit='return confirm(\"Tem certeza que deseja excluir?\");'>
                                                 <input type='hidden' name='id' value='{$row['id']}'>
