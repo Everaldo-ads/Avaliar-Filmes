@@ -1,27 +1,37 @@
 <?php
-include_once("../../db/config.inc.php");
+    include_once("../../db/config.inc.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $id = $_REQUEST['id'];
 
-    $id = $_POST["id"];
+        if ($id) {
 
-    if (!$id) {
-        echo "Erro: id é obrigatório.";
-        exit;
-    }
+            
+            $sql = "SELECT id FROM castm WHERE id=$id;";
+            $select = mysqli_query($conn, $sql);
+            
+            if (mysqli_num_rows($select) > 0) {
 
-    $sql = "DELETE FROM CastActor WHERE id=$id";
-    $delete = mysqli_query($conn, $sql);
+                
+                $sql = "DELETE FROM castm WHERE id=$id;";
+                $delete = mysqli_query($conn, $sql);
 
-    if ($delete) {
-        echo "Ator removido do cast.";
+                if ($delete) {
+                    echo "Ator deletado com sucesso.";
+                } else {
+                    echo "Erro ao deletar o ator.";
+                }
+
+            } else {
+                echo "Ator não encontrado";
+            }
+
+        } else {
+            echo "Erro ao deletar ator: id necessário.";
+        }
+
     } else {
-        echo "Erro ao remover ator.";
+        echo "Método de requisição inválido.";
     }
 
-} else {
-    echo "Método inválido.";
-}
-
-mysqli_close($conn);
-?>
+    mysqli_close($conn);
