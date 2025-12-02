@@ -1,6 +1,10 @@
 <?php
+    include_once("../db/config.inc.php");
     readfile("topo.html");
     readfile("menu.html");
+
+    $sql_genres = "SELECT * FROM genre ORDER BY name ASC";
+    $result_genres = mysqli_query($conn, $sql_genres);
 ?>
 
 <div class="content">
@@ -28,6 +32,29 @@
                                 <option value="In Production">Em Produção</option>
                                 <option value="Planned">Planejado</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 p-3 bg-light rounded border">
+                        <label class="form-label fw-bold mb-2">Gêneros</label>
+                        <div class="row">
+                            <?php 
+                            if(mysqli_num_rows($result_genres) > 0) {
+                                while($genre = mysqli_fetch_assoc($result_genres)) {
+                                    echo '
+                                    <div class="col-md-3 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="genres[]" value="'.$genre['id'].'" id="g_'.$genre['id'].'">
+                                            <label class="form-check-label" for="g_'.$genre['id'].'">
+                                                '.$genre['name'].'
+                                            </label>
+                                        </div>
+                                    </div>';
+                                }
+                            } else {
+                                echo '<div class="col-12 text-muted">Nenhum gênero cadastrado no banco.</div>';
+                            }
+                            ?>
                         </div>
                     </div>
 
@@ -70,7 +97,6 @@
                     </div>
 
                     <hr>
-                    
                     <div class="text-end">
                         <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-save"></i> Salvar Filme</button>
                     </div>
@@ -78,7 +104,6 @@
                 </form>
             </div>
         </div>
-
     </div>
 </div>
 

@@ -3,13 +3,7 @@
     @readfile("topo.html");
     @readfile("menu.html");
 
-
- 
-    if (!isset($_GET['id']) || empty($_GET['id'])) {
-        echo "<script>alert('ID não informado!'); window.location='movies.php';</script>";
-        exit;
-    }
-
+    if (!isset($_GET['id'])) { echo "<script>window.location='movies.php';</script>"; exit; }
     $id = (int)$_GET['id'];
 
 
@@ -17,19 +11,28 @@
     $result = mysqli_query($conn, $sql);
     $movie = mysqli_fetch_assoc($result);
 
-    if (!$movie) {
-        echo "<div class='content'><div class='alert alert-warning'>Filme não encontrado. <a href='movies.php'>Voltar</a></div></div>";
-        exit;
-    }
+    if (!$movie) { echo "Filme não encontrado."; exit; }
 
+ 
     $sql_img = "SELECT content FROM movieimage WHERE movie_id = $id LIMIT 1";
     $res_img = mysqli_query($conn, $sql_img);
     $image = mysqli_fetch_assoc($res_img);
+
+
+    $sql_genres = "SELECT * FROM genre ORDER BY name ASC";
+    $res_genres = mysqli_query($conn, $sql_genres);
+
+ 
+    $my_genres = [];
+    $sql_my_genres = "SELECT genre_id FROM movie_genre WHERE movie_id = $id";
+    $res_my_genres = mysqli_query($conn, $sql_my_genres);
+    while($g = mysqli_fetch_assoc($res_my_genres)){
+        $my_genres[] = $g['genre_id'];
+    }
 ?>
 
 <div class="content">
     <div class="container-fluid">
-        
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Editar Filme: <?php echo htmlspecialchars($movie['name']); ?></h2>
             <a href="movies.php" class="btn btn-secondary">Voltar</a>
@@ -38,7 +41,6 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <form action="../api/movies/update.php" method="POST" enctype="multipart/form-data">
-                    
                     <input type="hidden" name="id" value="<?php echo $movie['id']; ?>">
 
                     <div class="row">
@@ -46,7 +48,6 @@
                             <label class="form-label">Nome do Filme *</label>
                             <input type="text" name="name" class="form-control" required value="<?php echo htmlspecialchars($movie['name']); ?>">
                         </div>
-                        
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Status *</label>
                             <select name="status" class="form-select" required>
@@ -55,6 +56,31 @@
                                 <option value="In Production" <?php echo ($movie['status'] == 'In Production') ? 'selected' : ''; ?>>Em Produção</option>
                                 <option value="Planned" <?php echo ($movie['status'] == 'Planned') ? 'selected' : ''; ?>>Planejado</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 p-3 bg-light rounded border">
+                        <label class="form-label fw-bold mb-2">Gêneros</label>
+                        <div class="row">
+                            <?php 
+                            if(mysqli_num_rows($res_genres) > 0) {
+                                while($genre = mysqli_fetch_assoc($res_genres)) {
+                                    $checked = in_array($genre['id'], $my_genres) ? "checked" : "";
+                                    
+                                    echo '
+                                    <div class="col-md-3 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="genres[]" value="'.$genre['id'].'" id="g_'.$genre['id'].'" '.$checked.'>
+                                            <label class="form-check-label" for="g_'.$genre['id'].'">
+                                                '.$genre['name'].'
+                                            </label>
+                                        </div>
+                                    </div>';
+                                }
+                            } else {
+                                echo '<div class="col-12 text-muted">Nenhum gênero cadastrado.</div>';
+                            }
+                            ?>
                         </div>
                     </div>
 
@@ -99,14 +125,13 @@
                                     $imgBase64 = base64_encode($image['content']);
                                     echo "<img src='data:image/jpeg;base64,{$imgBase64}' class='img-thumbnail shadow-sm' style='max-height: 120px;'>";
                                 } else {
-                                    echo "<span class='text-muted'><i class='bi bi-image fs-1'></i><br>Sem Capa</span>";
+                                    echo "<span class='text-muted'>Sem Capa</span>";
                                 }
                             ?>
                         </div>
                         <div class="col-md-10">
-                            <label class="form-label">Adicionar Novas Imagens</label>
+                            <label class="form-label">Adicionar Imagens</label>
                             <input type="file" name="images[]" class="form-control" multiple accept="image/*">
-                            <div class="form-text text-muted">Se selecionar arquivos aqui, eles serão <strong>adicionados</strong> à galeria do filme.</div>
                         </div>
                     </div>
 
@@ -114,11 +139,9 @@
                     <div class="text-end">
                         <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-save"></i> Salvar Alterações</button>
                     </div>
-
                 </form>
             </div>
         </div>
-
     </div>
 </div>
 
