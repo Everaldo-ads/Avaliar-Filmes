@@ -1,43 +1,39 @@
 <?php
-include_once("../../db/config.inc.php");
+    include_once("../../db/config.inc.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        header("Content-Type: application/json; charset=utf-8");
 
-    header("Content-Type: application/json");
+        $sql = "";
 
-    $movie_id = $_GET["movie_id"];
+        if (!empty($_REQUEST['id'])) {
+            $id = $_REQUEST['id'];
+            $sql = "SELECT * FROM castm WHERE id = $id";
+        } 
+        elseif (!empty($_REQUEST['movie_id'])) {
+            $movie_id = $_REQUEST['movie_id'];
+            $sql = "SELECT * FROM castm WHERE movie_id = $movie_id";
+        } 
+        else {
+            echo json_encode(["error" => "Erro: Informe 'id' ou 'movie_id'."]);
+            exit;
+        }
 
-    if (!$movie_id) {
-        echo json_encode(["error" => "movie_id é obrigatório."]);
-        exit;
+        $result = mysqli_query($conn, $sql);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            
+            $dados = mysqli_fetch_assoc($result);
+            
+            echo json_encode($dados);
+
+        } else {
+            echo json_encode(["error" => "Elenco não encontrado."]);
+        }
+
+    } else {
+        echo json_encode(["error" => "Método inválido."]);
     }
 
-    $sql = "
-        SELECT 
-            Actor.id,
-            Actor.name,
-            Actor.birthdate,
-            Actor.country,
-            Actor.biography
-        FROM Cast
-        INNER JOIN CastActor ON CastActor.cast_id = Cast.id
-        INNER JOIN Actor ON Actor.id = CastActor.actor_id
-        WHERE Cast.movie_id = $movie_id;
-    ";
-
-    $result = mysqli_query($conn, $sql);
-
-    $actors = [];
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        $actors[] = $row;
-    }
-
-    echo json_encode($actors);
-
-} else {
-    echo json_encode(["error" => "Método inválido."]);
-}
-
-mysqli_close($conn);
+    mysqli_close($conn);
 ?>
