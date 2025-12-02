@@ -1,8 +1,7 @@
-<?php
-    // 1. Conecta ao banco de dados
+<?php 
     include_once("../db/config.inc.php"); 
     
-    // 2. Carrega o visual (Topo e Menu)
+ 
     readfile("topo.html");
     readfile("menu.html");
 ?>
@@ -32,8 +31,6 @@
                         </thead>
                         <tbody>
                             <?php
-                            // 3. Query para buscar filmes + 1 imagem de capa
-                            // Usamos uma subquery para pegar apenas UMA imagem por filme para a lista não ficar pesada
                             $sql = "
                                 SELECT 
                                     m.id, m.name, m.release_date, m.age_classification, m.status,
@@ -49,22 +46,22 @@
                                     echo "<tr>";
                                     echo "<td>#{$row['id']}</td>";
                                     
-                                    // --- Lógica da Imagem (BLOB para Base64) ---
+                                    
                                     if (!empty($row['poster'])) {
                                         $img = base64_encode($row['poster']);
                                         echo "<td><img src='data:image/jpeg;base64,{$img}' width='60' class='rounded shadow-sm' style='aspect-ratio: 2/3; object-fit: cover;'></td>";
                                     } else {
-                                        // Ícone padrão se não tiver imagem
+                                        
                                         echo "<td><div class='bg-light text-secondary rounded d-flex align-items-center justify-content-center' style='width:60px; height:90px;'><i class='bi bi-camera-video-off'></i></div></td>";
                                     }
 
                                     echo "<td><strong>{$row['name']}</strong></td>";
                                     
-                                    // --- Formatar Data (Y-m-d para d/m/Y) ---
+                                    
                                     $dataBr = date('d/m/Y', strtotime($row['release_date']));
                                     echo "<td>{$dataBr}</td>";
                                     
-                                    // --- Badge da Classificação ---
+                                    
                                     $badgeColor = 'bg-secondary';
                                     if($row['age_classification'] == 'L') $badgeColor = 'bg-success';
                                     if($row['age_classification'] == '10') $badgeColor = 'bg-info';
@@ -77,7 +74,7 @@
                                     
                                     echo "<td><small class='text-muted'>{$row['status']}</small></td>";
                                     
-                                    // --- Botões de Ação ---
+                                   
                                     echo "<td>
                                             <div class='d-flex gap-2'>
                                                 <a href='movie_edit.php?id={$row['id']}' class='btn btn-sm btn-primary' title='Editar'><i class='bi bi-pencil'></i></a>
