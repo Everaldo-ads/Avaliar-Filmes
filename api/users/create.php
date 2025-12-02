@@ -3,7 +3,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_REQUEST['email'];
         $password = $_REQUEST['password'];
-        $nickname = $_REQUEST['name'];
+        $nickname = $_REQUEST['nickname'];
         $profileImage = $_FILES['profileImage'];
 
         if (!$email) {
