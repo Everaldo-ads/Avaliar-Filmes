@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS cast_actor (
   actor_id INT UNSIGNED NOT NULL,
   UNIQUE KEY unique_casting (cast_id, actor_id),
   FOREIGN KEY (actor_id) REFERENCES actor(id) ON DELETE CASCADE,
-  FOREIGN KEY (cast_id) REFERENCES `cast`(id) ON DELETE CASCADE
+  FOREIGN KEY (cast_id) REFERENCES castm (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS favorites_item (
