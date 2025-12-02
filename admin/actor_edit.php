@@ -5,12 +5,6 @@
     @readfile("topo.html");
     @readfile("menu.html");
 
-
-    if (!isset($conn)) {
-        die("<div class='alert alert-danger'>Erro: Conexão com banco não encontrada!</div>");
-    }
-
-
     if (!isset($_GET['id']) || empty($_GET['id'])) {
         echo "<script>alert('ID não informado!'); window.location='actors.php';</script>";
         exit;
