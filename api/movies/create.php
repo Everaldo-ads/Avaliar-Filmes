@@ -17,6 +17,25 @@
         return $values;
     }
 
+    function get_genres_from_request() {
+        $genres = array();
+        if (isset($_REQUEST['genres']) && is_array($_REQUEST['genres'])) {
+            foreach ($_REQUEST['genres'] as $genre) {
+                $genres[] = intval($genre);
+            }
+        }
+        return $genres;
+    }
+
+    function get_genres_sql($genres, $movie_id) {
+        $values = "";
+        foreach ($genres as $genre_id) {
+            $values .= "($movie_id, $genre_id),"; 
+        }
+        $values = substr($values, 0, -1); 
+        return $values;
+    }
+
     include_once("../../db/config.inc.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -44,6 +63,7 @@
         $country = $_REQUEST['country'];
         $duration = $_REQUEST['duration'];
         $budget = $_REQUEST['budget'];
+        $genres = get_genres_from_request();
 
         
         $sql = "INSERT INTO movie (age_classification, name, status, release_date, country, duration, budget)
@@ -54,6 +74,15 @@
         if ($insert) {
             
             $movie_id = mysqli_insert_id($conn);
+
+            $sql_cast = "INSERT INTO `cast` (movie_id) VALUES ('$movie_id')";
+            mysqli_query($conn, $sql_cast);
+
+            if (!empty($genres)) {
+                $genres_sql_values = get_genres_sql($genres, $movie_id);
+                $sql_genres = "INSERT INTO movie_genre (movie_id, genre_id) VALUES $genres_sql_values";
+                mysqli_query($conn, $sql_genres);
+            }
             
             if (isset($_FILES['images']) && !empty($_FILES['images']['tmp_name'][0])) {
                 
