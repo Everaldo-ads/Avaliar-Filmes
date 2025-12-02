@@ -3,23 +3,24 @@ include_once("../../db/config.inc.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $cast_id = $_POST["cast_id"];
-    $actor_id = $_POST["actor_id"];
+    
+    $movie_id = $_POST['movie_id'];
 
-    if (!$cast_id || !$actor_id) {
-        echo "Erro: cast_id e actor_id são obrigatórios.";
+    if (!$movie_id) {
+        echo "Erro: O ID do filme (movie_id) é obrigatório.";
         exit;
     }
 
-    $sql = "INSERT INTO CastActor (cast_id, actor_id)
-            VALUES ($cast_id, $actor_id)";
+    $sql = "
+        INSERT INTO castm (movie_id)
+        VALUES ('$movie_id')
+    ";
 
-    $insert = mysqli_query($conn, $sql);
-
-    if ($insert) {
-        echo "Ator adicionado ao cast.";
+    if (mysqli_query($conn, $sql)) {
+        $novo_id = mysqli_insert_id($conn);
+        echo "Elenco criado com sucesso! ID do Elenco: " . $novo_id;
     } else {
-        echo "Erro ao adicionar ator ao cast.";
+        echo "Erro MySQL: " . mysqli_error($conn);
     }
 
 } else {
