@@ -1,8 +1,10 @@
 <?php
+    
     include_once("../../db/config.inc.php");
 
+    header("Content-Type: application/json; charset=utf-8");
+
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        header("Content-Type: application/json");
 
         $where = "";
         if (!empty($_REQUEST['movie_id'])) {
@@ -13,6 +15,7 @@
             $where = "WHERE r.user_id = $id";
         }
 
+        
         $sql = "
             SELECT 
                 r.id,
@@ -29,18 +32,24 @@
             ORDER BY r.created_at DESC
         ";
 
-        $result = mysqli_query($conn, $sql);
-        $reviews = [];
+        if ($conn) {
+            $result = mysqli_query($conn, $sql);
+            $reviews = [];
 
-        if ($result) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                $reviews[] = $row;
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $reviews[] = $row;
+                }
             }
+            echo json_encode($reviews);
+        } else {
+            
+            echo json_encode(["error" => "Erro de conexão com o banco de dados."]);
         }
-        echo json_encode($reviews);
 
     } else {
         echo json_encode(["error" => "Método inválido."]);
     }
-    mysqli_close($conn);
+    
+  mysqli_close($conn);
 ?>
