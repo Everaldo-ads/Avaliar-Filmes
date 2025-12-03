@@ -2,8 +2,8 @@
     include_once("../db/config.inc.php");
     
 
-    @readfile("topo.html");
-    @readfile("menu.html");
+    readfile("topo.html");
+    readfile("menu.html");
 
     if (!isset($_GET['id']) || empty($_GET['id'])) {
         echo "<script>alert('ID não informado!'); window.location='actors.php';</script>";
