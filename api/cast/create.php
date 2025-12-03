@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $movie_id = $_POST['movie_id'];
 
     if (!$movie_id) {
-        echo "Erro: O ID do filme (movie_id) é obrigatório.";
+        echo "Erro: O ID do filme é obrigatório.";
         exit;
     }
 

@@ -17,17 +17,17 @@
                 $delete = mysqli_query($conn, $sql);
 
                 if ($delete) {
-                    echo "Ator deletado com sucesso.";
+                    echo "Elenco deletado com sucesso.";
                 } else {
-                    echo "Erro ao deletar o ator.";
+                    echo "Erro ao deletar o elenco.";
                 }
 
             } else {
-                echo "Ator não encontrado";
+                echo "Elenco não encontrado";
             }
 
         } else {
-            echo "Erro ao deletar ator: id necessário.";
+            echo "Erro ao deletar elenco: id necessário.";
         }
 
     } else {
