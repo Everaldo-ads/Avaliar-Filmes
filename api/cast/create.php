@@ -5,20 +5,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
     $movie_id = $_POST['movie_id'];
+    $actor_id = $_POST['actor_id'];
+    $character_name = $_POST['character_name'];
 
-    if (!$movie_id) {
-        echo "Erro: O ID do filme é obrigatório.";
+    
+    if (!$movie_id || !$actor_id) {
+        echo "Erro: É necessário informar o ID do Filme e o ID do Ator.";
         exit;
     }
 
+    
     $sql = "
-        INSERT INTO castm (movie_id)
-        VALUES ('$movie_id')
+        INSERT INTO movie_cast (movie_id, actor_id, character_name)
+        VALUES ('$movie_id', '$actor_id', '$character_name')
     ";
 
+    
     if (mysqli_query($conn, $sql)) {
-        $novo_id = mysqli_insert_id($conn);
-        echo "Elenco criado com sucesso! ID do Elenco: " . $novo_id;
+        echo "Ator vinculado ao filme com sucesso!";
     } else {
         echo "Erro MySQL: " . mysqli_error($conn);
     }
@@ -27,5 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Método inválido.";
 }
 
-mysqli_close($conn);
+
+    mysqli_close($conn);
 ?>
