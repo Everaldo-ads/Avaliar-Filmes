@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $sql = "UPDATE cast_actor SET 
+    $sql = "UPDATE castactor SET 
             cast_id = '$cast_id', 
             actor_id = '$actor_id' 
             WHERE id = '$id'";
