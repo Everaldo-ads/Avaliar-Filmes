@@ -6,6 +6,14 @@
     box-sizing: border-box;
 }
 
+#msg {
+    margin-top: 10px;
+    text-align: center;
+    color: #ffbcbc;
+    font-size: 14px;
+    min-height: 20px;
+}
+
 body {
     display: flex;
     justify-content: center;

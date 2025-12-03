@@ -4,14 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styleCadastro.css">
+    <link rel="stylesheet" href="style.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <title>CADASTRO</title>
+
+    <style>
+        #msg {
+            margin-top: 10px;
+            text-align: center;
+            color: #ffbcbc;
+            font-size: 14px;
+            min-height: 20px;
+        }
+    </style>
 </head>
 
 <body>
     <main class="container">
-        <form action="../api/users/create.php" method="POST" enctype="multipart/form-data">
+        <form id="formCadastro" action="../api/users/create.php" method="POST" enctype="multipart/form-data">
             <h1>Cadastrar</h1>
 
             <div class="input-box">
@@ -22,7 +32,7 @@
 
             <div class="input-box">
                 <label for="nickname">Usuário</label>
-                <input id="nickname" name="nickname" placeholder="Digite seu nickname" type="text" required>
+                <input id="nickname" name="name" placeholder="Digite seu nickname" type="text" required>
                 <i class="bx bxs-user"></i>
             </div>
 
@@ -40,12 +50,45 @@
 
             <button type="submit" class="login">Cadastrar</button>
 
+            <div id="msg"></div>
+
             <div class="cadastro-link">
                 <p>Já tem uma conta? <a href="./login.html">Entrar</a></p>
             </div>
         </form>
     </main>
 
+    <script>
+        const form = document.getElementById("formCadastro");
+        const msg = document.getElementById("msg");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            msg.textContent = "Aguarde...";
+
+            const data = new FormData(form);
+
+
+            const res = await fetch(form.action, {
+                method: "POST",
+                body: data
+            });
+
+            const text = await res.text();
+
+            if (text.includes("Usuário criado com sucesso")) {
+                msg.style.color = "#b2ffa8";
+                msg.textContent = "Conta criada! Redirecionando...";
+
+                window.location.href = "../login/login.html";
+            } else {
+                msg.style.color = "#ffbcbc";
+                msg.textContent = text;
+            }
+
+
+        });
+    </script>
 </body>
 
 </html>
