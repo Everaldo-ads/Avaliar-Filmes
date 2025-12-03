@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include_once('../db/config.inc.php');
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_REQUEST['email'];
