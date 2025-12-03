@@ -1,13 +1,6 @@
 <?php
     include_once("../../db/config.inc.php");
 
-
-if (!isset($conn)) {
-    header("Content-Type: application/json");
-    echo json_encode(["error" => "Erro: Conexão com o banco falhou."]);
-    exit;
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     header("Content-Type", "application/json");
 
