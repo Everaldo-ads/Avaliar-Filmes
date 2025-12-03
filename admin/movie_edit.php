@@ -1,7 +1,7 @@
 <?php
     include_once("../db/config.inc.php");
-    @readfile("topo.html");
-    @readfile("menu.html");
+    readfile("topo.html");
+    readfile("menu.html");
 
     if (!isset($_GET['id'])) { echo "<script>window.location='movies.php';</script>"; exit; }
     $id = (int)$_GET['id'];
