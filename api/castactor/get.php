@@ -8,15 +8,15 @@
 
         if (!empty($_REQUEST['cast_id'])) {
             $cast_id = $_REQUEST['cast_id'];
-            $sql = "SELECT * FROM castactor WHERE cast_id = $cast_id";
+            $sql = "SELECT * FROM cast_actor WHERE cast_id = $cast_id";
         }
         elseif (!empty($_REQUEST['actor_id'])) {
             $actor_id = $_REQUEST['actor_id'];
-            $sql = "SELECT * FROM castactor WHERE actor_id = $actor_id";
+            $sql = "SELECT * FROM cast_actor WHERE actor_id = $actor_id";
         }
         elseif (!empty($_REQUEST['id'])) {
             $id = $_REQUEST['id'];
-            $sql = "SELECT * FROM castactor WHERE id = $id";
+            $sql = "SELECT * FROM cast_actor WHERE id = $id";
         }
         else {
             echo json_encode(["error" => "Erro: Informe 'cast_id', 'actor_id' ou 'id'."]);
