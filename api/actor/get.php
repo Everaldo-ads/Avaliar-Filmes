@@ -4,12 +4,10 @@
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         header("Content-Type", "application/json");
 
-        $required_params = array("id");
-        foreach ($required_params as $param) {
-            if (!$_REQUEST[$param]) {
-                echo "Erro ao buscar ator: o valor de '$param' é necessário.";
-                exit;
-            }
+        
+        if (empty($_REQUEST['id'])) {
+            echo json_encode(["error" => "Erro: É necessário informar o ID do ator (ex: ?id=1)."]);
+            exit;
         }
 
         $id = $_REQUEST['id'];
@@ -22,13 +20,14 @@
                 country,
                 biography,
                 profile_image
-            FROM Actor
+            FROM actor
             WHERE id = $id;
         ";
 
+        
         $result = mysqli_query($conn, $sql);
 
-        if (mysqli_num_rows($result) > 0) {
+        if ($result && mysqli_num_rows($result) > 0) {
 
             $dados = mysqli_fetch_array($result);
 
@@ -38,6 +37,7 @@
                 "birthdate" => $dados["birthdate"],
                 "country" => $dados["country"],
                 "biography" => $dados["biography"],
+                
                 "profile_image" => $dados["profile_image"] 
                     ? base64_encode($dados["profile_image"]) 
                     : null
@@ -47,7 +47,7 @@
 
         } else {
             echo json_encode([
-                "error" => "Ator não encontrado."
+                "error" => "Ator não encontrado com o ID: " . $id
             ]);
         }
 
@@ -57,5 +57,5 @@
         ]);
     }
 
-    mysqli_close($conn);
+        mysqli_close($conn);
 ?>
