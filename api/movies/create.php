@@ -75,7 +75,7 @@
             
             $movie_id = mysqli_insert_id($conn);
 
-            $sql_cast = "INSERT INTO `cast` (movie_id) VALUES ('$movie_id')";
+            $sql_cast = "INSERT INTO cast_m (movie_id) VALUES ('$movie_id')";
             mysqli_query($conn, $sql_cast);
 
             if (!empty($genres)) {
