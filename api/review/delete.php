@@ -5,12 +5,12 @@
         $id = $_REQUEST['id'];
 
         if ($id) {
-            $sql = "SELECT id FROM Review WHERE id=$id;";
+            $sql = "SELECT id FROM review WHERE id=$id;";
             $select = mysqli_query($conn, $sql);
             
             if ($select && mysqli_num_rows($select) > 0) {
 
-                $sql = "DELETE FROM Review WHERE id=$id;";
+                $sql = "DELETE FROM review WHERE id=$id;";
                 $delete = mysqli_query($conn, $sql);
 
                 if ($delete) {
