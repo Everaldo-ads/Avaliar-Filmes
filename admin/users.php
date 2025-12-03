@@ -64,9 +64,6 @@
                                     
 
                                     echo "<td>
-                                            <div class='d-flex gap-2'>
-                                                <a href='user_edit.php?id={$row['id']}' class='btn btn-sm btn-primary' title='Editar'><i class='bi bi-pencil'></i></a>
-                                                
                                                 <form action='../api/users/delete.php' method='POST' onsubmit='return confirm(\"Tem certeza que deseja excluir o usuário {$row['nickname']}?\");'>
                                                     <input type='hidden' name='id' value='{$row['id']}'>
                                                     <button type='submit' class='btn btn-sm btn-danger' title='Excluir'><i class='bi bi-trash'></i></button>
