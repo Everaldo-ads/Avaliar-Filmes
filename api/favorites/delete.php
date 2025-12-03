@@ -17,17 +17,17 @@
                 $delete = mysqli_query($conn, $sql);
 
                 if ($delete) {
-                    echo "Ator deletado com sucesso.";
+                    echo "Filme favorito deletado com sucesso.";
                 } else {
-                    echo "Erro ao deletar o ator.";
+                    echo "Erro ao deletar o Filme favorito.";
                 }
 
             } else {
-                echo "Ator não encontrado";
+                echo "Filme favorito não encontrado";
             }
 
         } else {
-            echo "Erro ao deletar ator: id necessário.";
+            echo "Erro ao deletar filme favorito: id necessário.";
         }
 
     } else {
