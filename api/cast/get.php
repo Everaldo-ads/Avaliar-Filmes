@@ -35,7 +35,7 @@
                     "id"             => $row['vinculo_id'],
                     "actor_id"       => $row['actor_id'],
                     "actor_name"     => $row['actor_name'],
-                    "actor_image"    => $row['profile_image'] ? base64_encode($row['profile_image']) : null
+                    "actor_image"    => $row['profile_image'] ? base64_encode($row['profile_image'])
                 ];
             }
             
