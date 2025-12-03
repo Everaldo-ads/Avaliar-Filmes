@@ -27,7 +27,7 @@
             }
 
         } else {
-            echo "Erro ao deletar Filme: id necessário.";
+            echo "Erro ao deletar filme: id necessário.";
         }
 
     } else {
