@@ -17,17 +17,17 @@
                 $delete = mysqli_query($conn, $sql);
 
                 if ($delete) {
-                    echo "Genero deletado com sucesso.";
+                    echo "Gênero deletado com sucesso.";
                 } else {
-                    echo "Erro ao deletar o genero.";
+                    echo "Erro ao deletar o gênero.";
                 }
 
             } else {
-                echo "Genero não encontrado";
+                echo "Gênero não encontrado";
             }
 
         } else {
-            echo "Erro ao deletar Genero: id necessário.";
+            echo "Erro ao deletar gênero: id necessário.";
         }
 
     } else {
