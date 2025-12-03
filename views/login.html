@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,10 @@
 
     <title>LOGIN</title>
 </head>
+
 <body>
     <main class="container">
-        <form>
+        <form action="../api/users/get.php" method="POST">
             <h1>Login</h1>
             <div class="input-box">
                 <input placeholder="E-mail" type="email">
@@ -18,7 +20,7 @@
             </div>
             <div class="input-box">
                 <input placeholder="Senha" type="password">
-            <i class="bx bxs-lock-alt"></i>
+                <i class="bx bxs-lock-alt"></i>
             </div>
             <button type="submit" class="login">Login</button>
             <div class="cadastro-link">
@@ -28,4 +30,5 @@
 
     </main>
 </body>
+
 </html>

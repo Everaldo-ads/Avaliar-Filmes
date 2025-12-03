@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="stylesheet" href="styleHome.css">
+</head>
+
+<body>
+
+  <header class="topbar">
+    <h2>CinePhilia</h2>
+    <nav class="menu">
+      <a href="#topo" class="logo">Início</a>
+      <a href="#sobre" class="logo">Sobre</a>
+    </nav>
+  </header>
+
+  <div id="topo"></div>
+
+  <div class="container">
+
+    <div class="banner">
+      <img src="img/banner.png" alt="banner">
+    </div>
+
+
+
+    <h3>Últimas Análises</h3>
+
+    <div class="carrossel">
+      <button class="btn-carousel left">◀</button>
+      <div class="carrossel-inner" id="filmes-avaliados"></div>
+      <button class="btn-carousel right">▶</button>
+    </div>
+
+    <h3>Filmes Disponíveis para Avaliação</h3>
+    <div class="movies" id="filmes-disponiveis"></div>
+  </div>
+
+  <script src="home.js"></script>
+</body>
+
+</html>

@@ -29,7 +29,7 @@ h1 {
     border-radius: 10px;
     color: #fff;
     padding: 30px 40px;
-    box-shadow: box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
     backdrop-filter: blur(4px);
 }
 
@@ -83,7 +83,7 @@ p {
     font-size: 12px;
     color: #333;
     font-weight: 600;
-    box-shadow: box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .login:hover {
