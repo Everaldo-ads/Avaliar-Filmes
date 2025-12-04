@@ -3,6 +3,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_REQUEST['id'];
+        session_start();
 
         if ($user_id = $_SESSION['user_id'] ?? false) {
 

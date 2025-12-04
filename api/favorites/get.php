@@ -6,6 +6,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         header("Content-Type: application/json");
         
+        session_start();
         if ($user_id = $_SESSION['user_id'] ?? false) {
             $sql = "
                 SELECT 

@@ -8,7 +8,7 @@
             $select = mysqli_query($conn, $sql);
             
             if ($select) {
-                $sql = "DELETE FROM user WHERE id=$id;";
+                $sql = "DELETE FROM users WHERE id=$id;";
                 $delete = mysqli_query($conn, $sql);
                 if ($delete) {
                     echo "Usuário deletado com sucesso.";

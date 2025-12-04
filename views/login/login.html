@@ -12,7 +12,7 @@
 
 <body>
     <main class="container">
-        <form id="formLogin" action="../api/login.php" method="POST">
+        <form id="formLogin" action="../../api/login.php" method="POST">
             <h1>Login</h1>
 
             <div class="input-box">
@@ -58,7 +58,7 @@
                 msg.style.color = "#b2ffa8";
                 msg.textContent = "Login efetuado! Redirecionando...";
 
-                window.location.href = "./home/home.html";
+                window.location.href = "../home/home.html";
             } else {
                 msg.style.color = "#ffbcbc";
                 msg.textContent = text;
