@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch(`../api/review/me.php?user_id=${userId}`);
+      const response = await fetch(`../../api/review/me.php`);
 
       if (!response.ok) {
         throw new Error(`Erro HTTP: ${response.status}`);
@@ -47,7 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         `;
       });
-    } catch {
+    } catch (e) {
+      console.log(e);
       container.innerHTML = "<p>Erro ao carregar análises.</p>";
     }
   }
@@ -57,13 +58,14 @@ document.addEventListener("DOMContentLoaded", () => {
     container.innerHTML = "<p>Carregando...</p>";
 
     try {
-      const response = await fetch(`/api/movies/get_many.php?limit=20`);
+      const response = await fetch(`../../api/movies/get_many.php?limit=20`);
 
-      if (response.ok) {
+      if (!response.ok) {
         throw new Error(`Erro HTTP: ${response.status}`);
       }
 
       const filmes = await response.json();
+      console.log(filmes)
 
       container.innerHTML = "";
 
@@ -76,21 +78,26 @@ document.addEventListener("DOMContentLoaded", () => {
         let poster = "../assets/default.jpg";
 
 
+        /*
         const imagens = JSON.parse(filme.images);
         if (imagens.length > 0 && imagens[0].content) {
           poster = "data:image/jpeg;base64," + atob(imagens[0].content);
         }
+        */
 
 
         container.innerHTML += `
           <div class="card" onclick="abrirFilme(${filme.id})">
-            <img src="${poster}" alt="${filme.name}">
+            <!--<img src="${poster}" alt="${filme.name}">-->
             <h2>${filme.name}</h2>
+            <h3>⭐ ${filme.average_score}</h3>
+            <h3>Reviews: ${filme.review_count}</h3>
           </div>
         `;
       });
 
-    } catch {
+    } catch (e) {
+      console.log(e);
       container.innerHTML = "<p>Erro ao carregar filmes.</p>";
     }
   }
@@ -126,5 +133,5 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function abrirFilme(id) {
-  window.location.href = `../movies/movies.html?id=${id}`;
+  window.location.href = `../movies/?id=${id}`;
 }
