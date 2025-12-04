@@ -1,6 +1,6 @@
 <?php
     include_once("../../db/config.inc.php");
-
+    session_start();
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_REQUEST['id'];
 
