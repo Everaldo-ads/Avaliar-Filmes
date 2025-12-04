@@ -11,7 +11,7 @@ function getCookie(name) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  let userId = getCookie('user_id');
+  let userId = getCookie('PHPSESSID');
 
   async function carregarCarrossel() {
     const container = document.getElementById("filmes-avaliados");
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const response = await fetch(`../api/review/get.php?user_id=${userId}`);
+      const response = await fetch(`../api/review/me.php?user_id=${userId}`);
 
       if (!response.ok) {
         throw new Error(`Erro HTTP: ${response.status}`);
