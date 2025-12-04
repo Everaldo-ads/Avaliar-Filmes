@@ -1,6 +1,7 @@
 <?php
     include_once("../../db/config.inc.php");
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        session_start();
         if ($user_id = $_SESSION['user_id'] ?? false) {
             $sql = "
                 SELECT r.id, r.score, r.message, r.created_at, m.name AS movie_name

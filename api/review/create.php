@@ -3,6 +3,8 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+        session_start();
+
         if ($user_id = $_SESSION['user_id'] ?? false) {
 
             $movie_id  = $_REQUEST['movie_id'];
