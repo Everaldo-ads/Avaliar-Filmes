@@ -18,24 +18,34 @@
     <button class="next" onclick="moveSlide(1)">&#10095;</button>
   </div>
 
-  <div class="container">
-    <div class="movie-info">
-      <img id="poster" src="" alt="Poster" />
+  <div class="movie-info">
+  <img id="images" src="" alt="Poster">
 
-      <div class="details">
-        <h2 id="titulo">Carregando...</h2>
-        <p id="diretor"></p>
-        <p id="genero"></p>
-        <p id="duracao"></p>
+  <div class="details">
+    <h2 id="name">Carregando...</h2>
 
-        <div class="rating" id="nota"></div>
-      </div>
-    </div>
+    <p id="release_date"></p>
+    <p id="age_classification"></p>
+    <p id="status"></p>
+    <p id="genres"></p>
+    <p id="country"></p>
+    <p id="duration"></p>
+    <p id="budget"></p>
 
+    <div class="rating" id="average_score"></div>
+  </div>
+</div>
+
+    <!-- FORM DE REVIEW CORRIGIDO -->
     <div class="review-box">
-      <h3>Escreva seu review</h3>
-      <textarea id="reviewText" placeholder="Digite aqui..."></textarea>
-      <button onclick="addReview()">Enviar Review</button>
+      <h3>Enviar Review</h3>
+
+      <form id="formReview" action="../api/review/create.php" method="POST">
+        <input type="hidden" id="movie_id" name="movie_id" placeholder="ID do Filme" required><br>
+        <input type="number" step="0.1" min="0" max="5" id="score" name="score" placeholder="Nota (0 a 5)" required><br>
+        <textarea id="message" name="message" placeholder="Comentário" required></textarea><br>
+        <button type="submit">Enviar Review</button>
+      </form>
     </div>
 
     <div class="user-reviews" id="reviewsList">
@@ -44,35 +54,32 @@
   </div>
 
   <script>
-    function addReview() {
-      const text = document.getElementById("reviewText").value.trim();
-      if (text === "") return;
-
-      const div = document.createElement("div");
-      div.className = "review-item";
-      div.textContent = text;
-
-      document.getElementById("reviewsList").appendChild(div);
-      document.getElementById("reviewText").value = "";
-    }
-
     let slideIndex = 0;
 
+    // ==========================
+    // 1) CARREGAR DADOS DO FILME
+    // ==========================
     async function loadMovieData() {
       const params = new URLSearchParams(window.location.search);
       const id = params.get("id");
       if (!id) return alert("Nenhum ID encontrado na URL");
 
+      document.getElementById("movie_id").value = id;
+
       try {
-        const res = await fetch(`http://localhost:4443/filme/${id}`);
+        const res = await fetch("../api/movies/get.php?id=" + id);
         const data = await res.json();
 
-        document.getElementById("poster").src = data.poster;
-        document.getElementById("titulo").textContent = `${data.titulo} (${data.ano})`;
-        document.getElementById("diretor").innerHTML = `<strong>Diretor:</strong> ${data.diretor}`;
-        document.getElementById("genero").innerHTML = `<strong>Gênero:</strong> ${data.genero}`;
-        document.getElementById("duracao").innerHTML = `<strong>Duração:</strong> ${data.duracao}`;
-        document.getElementById("nota").textContent = `⭐ ${data.nota}`;
+        document.getElementById("images").src = data.images[0]; 
+        document.getElementById("name").textContent = data.name;
+        document.getElementById("release_date").innerHTML = `<strong>Lançamento:</strong> ${data.release_date}`;
+        document.getElementById("age_classification").innerHTML = `<strong>Classificação:</strong> ${data.age_classification}`;
+        document.getElementById("status").innerHTML = `<strong>Status:</strong> ${data.status}`;
+        document.getElementById("genres").innerHTML = `<strong>Gêneros:</strong> ${data.genres.join(", ")}`;
+        document.getElementById("country").innerHTML = `<strong>País:</strong> ${data.country}`;
+        document.getElementById("duration").innerHTML = `<strong>Duração:</strong> ${data.duration} min`;
+        document.getElementById("budget").innerHTML = `<strong>Orçamento:</strong> $${data.budget}`;
+        document.getElementById("average_score").textContent = `&#11088 ${data.average_score}`;
 
         const container = document.getElementById("carouselImages");
         container.innerHTML = "";
@@ -87,6 +94,9 @@
       }
     }
 
+    // ==========================
+    // 2) CARROSSEL
+    // ==========================
     function moveSlide(n) {
       const slides = document.querySelector(".carousel-images");
       const total = slides.children.length;
