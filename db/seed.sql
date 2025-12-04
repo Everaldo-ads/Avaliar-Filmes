@@ -1,7 +1,7 @@
 INSERT INTO users (email, password, nickname, role, created_at) VALUES 
-('admin@cinephilia.com', 'admin123', 'AdminMaster', 'admin', NOW()),
-('pedro.almeida@email.com', 'senha123', 'PedroFilms', 'user', NOW()),
-('ana.costa@email.com', 'senha123', 'AnaCine', 'user', NOW());
+('admin@cinephilia.com', '$2a$12$KcXadzO81047rHOHMQmpsOKbqn6/yXUmzuRhI5J/iW1sGHaFCatP6', 'AdminMaster', 'admin', NOW()),
+('pedro.almeida@email.com', '$2a$12$cvhN3ZBL023Gzcjdq40kEuMB3pIrMeBgINh6U.daFBkX9wqPpklD2', 'PedroFilms', 'user', NOW()),
+('ana.costa@email.com', '$2a$12$cvhN3ZBL023Gzcjdq40kEuMB3pIrMeBgINh6U.daFBkX9wqPpklD2', 'AnaCine', 'user', NOW());
 
 INSERT INTO genre (name) VALUES 
 ('Drama'), ('Ficção Científica'), ('Crime'), ('Aventura'), ('Ação');

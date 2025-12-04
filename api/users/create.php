@@ -23,7 +23,7 @@
             if ($insert) {
                 echo "Usuário criado com sucesso!";
             } else {
-                echo "Erro ao criar usuário";
+                echo "Erro ao criar usuário" . mysqli_error($conn);
             }
         }
     } else {
