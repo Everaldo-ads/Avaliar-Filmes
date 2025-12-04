@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Review de Filme — Estilo IMDb</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Cinephilia</h1>
+  </header>
+
+  <!-- Carrossel de Imagens -->
+  <div class="carousel">
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <div class="carousel-images" id="carouselImages"></div>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+  </div>
+
+  <div class="container">
+    <div class="movie-info">
+      <img id="poster" src="" alt="Poster" />
+
+      <div class="details">
+        <h2 id="titulo">Carregando...</h2>
+        <p id="diretor"></p>
+        <p id="genero"></p>
+        <p id="duracao"></p>
+
+        <div class="rating" id="nota"></div>
+      </div>
+    </div>
+
+    <div class="review-box">
+      <h3>Escreva seu review</h3>
+      <textarea id="reviewText" placeholder="Digite aqui..."></textarea>
+      <button onclick="addReview()">Enviar Review</button>
+    </div>
+
+    <div class="user-reviews" id="reviewsList">
+      <h3>Reviews dos usuários</h3>
+    </div>
+  </div>
+
+  <script>
+    function addReview() {
+      const text = document.getElementById("reviewText").value.trim();
+      if (text === "") return;
+
+      const div = document.createElement("div");
+      div.className = "review-item";
+      div.textContent = text;
+
+      document.getElementById("reviewsList").appendChild(div);
+      document.getElementById("reviewText").value = "";
+    }
+
+    let slideIndex = 0;
+
+    async function loadMovieData() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      if (!id) return alert("Nenhum ID encontrado na URL");
+
+      try {
+        const res = await fetch(`http://localhost:4443/filme/${id}`);
+        const data = await res.json();
+
+        document.getElementById("poster").src = data.poster;
+        document.getElementById("titulo").textContent = `${data.titulo} (${data.ano})`;
+        document.getElementById("diretor").innerHTML = `<strong>Diretor:</strong> ${data.diretor}`;
+        document.getElementById("genero").innerHTML = `<strong>Gênero:</strong> ${data.genero}`;
+        document.getElementById("duracao").innerHTML = `<strong>Duração:</strong> ${data.duracao}`;
+        document.getElementById("nota").textContent = `⭐ ${data.nota}`;
+
+        const container = document.getElementById("carouselImages");
+        container.innerHTML = "";
+
+        data.imagens.forEach((url) => {
+          const img = document.createElement("img");
+          img.src = url;
+          container.appendChild(img);
+        });
+      } catch (error) {
+        console.error("Erro ao carregar filme:", error);
+      }
+    }
+
+    function moveSlide(n) {
+      const slides = document.querySelector(".carousel-images");
+      const total = slides.children.length;
+
+      slideIndex = (slideIndex + n + total) % total;
+      slides.style.transform = `translateX(${-slideIndex * 100}%)`;
+    }
+
+    loadMovieData();
+  </script>
+</body>
+</html>
