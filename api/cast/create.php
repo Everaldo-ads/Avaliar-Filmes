@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
     $sql = "
-        INSERT INTO movie_cast (movie_id, actor_id, character_name)
+        INSERT INTO `cast` (movie_id, actor_id, character_name)
         VALUES ('$movie_id', '$actor_id', '$character_name')
     ";
 

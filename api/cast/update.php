@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    $sql = "UPDATE castm SET movie_id = '$movie_id' WHERE id = '$id'";
+    $sql = "UPDATE `cast` SET movie_id = '$movie_id' WHERE id = '$id'";
 
     if (mysqli_query($conn, $sql)) {
         echo "Elenco (Cast) atualizado com sucesso!";

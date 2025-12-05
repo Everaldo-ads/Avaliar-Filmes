@@ -7,13 +7,13 @@
         if ($id) {
 
             
-            $sql = "SELECT id FROM castm WHERE id=$id;";
+            $sql = "SELECT id FROM `cast`WHERE id=$id;";
             $select = mysqli_query($conn, $sql);
             
             if (mysqli_num_rows($select) > 0) {
 
                 
-                $sql = "DELETE FROM castm WHERE id=$id;";
+                $sql = "DELETE FROM `cast` WHERE id=$id;";
                 $delete = mysqli_query($conn, $sql);
 
                 if ($delete) {
