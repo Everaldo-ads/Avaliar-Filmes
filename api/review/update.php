@@ -2,7 +2,7 @@
 include_once("../../db/config.inc.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+    session_start();
     $id = $_POST['id'];
     $score = $_POST['score'];
     $message = $_POST['message'];

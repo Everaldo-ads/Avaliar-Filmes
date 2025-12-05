@@ -2,7 +2,7 @@
     
     include_once("../../db/config.inc.php");
 
-    header("Content-Type: application/json; charset=utf-8");
+   if (!isset($conn))  header("Content-Type: application/json; charset=utf-8");
 
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
 

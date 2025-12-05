@@ -1,9 +1,9 @@
 <?php
     include_once("../../db/config.inc.php");
-    session_start();
+   
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $id = $_REQUEST['id'];
-
+         session_start();
         if ($id) {
             $sql = "SELECT id FROM review WHERE id=$id;";
             $select = mysqli_query($conn, $sql);

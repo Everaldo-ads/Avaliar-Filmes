@@ -1,9 +1,11 @@
 <?php
-    session_start();
+    
     include_once("../../db/config.inc.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+        session_start();
+        
         $user_id   = $_REQUEST['user_id'];
         $movie_id  = $_REQUEST['movie_id'];
         $score     = $_REQUEST['score'];
